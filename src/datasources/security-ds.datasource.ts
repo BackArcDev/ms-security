@@ -1,6 +1,6 @@
-import { inject, lifeCycleObserver, LifeCycleObserver } from '@loopback/core';
-import { juggler } from '@loopback/repository';
-import { Keys } from '../env/keys';
+import {inject, lifeCycleObserver, LifeCycleObserver} from '@loopback/core';
+import {juggler} from '@loopback/repository';
+import {Keys} from '../env/keys';
 
 const config = {
   name: 'securityDS',
@@ -25,7 +25,7 @@ export class SecurityDsDataSource extends juggler.DataSource
   static readonly defaultConfig = config;
 
   constructor(
-    @inject('datasources.config.securityDS', { optional: true })
+    @inject('datasources.config.securityDS', {optional: true})
     dsConfig: object = config,
   ) {
     super(dsConfig);
