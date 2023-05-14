@@ -1,7 +1,7 @@
 {
-  "name": "security",
+  "name": "ms-security",
   "version": "0.0.1",
-  "description": "security",
+  "description": "security module",
   "keywords": [
     "loopback-application",
     "loopback"
