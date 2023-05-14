@@ -1,16 +1,22 @@
-import {inject} from '@loopback/core';
-import {DefaultCrudRepository} from '@loopback/repository';
+import {Getter, inject} from '@loopback/core';
+import {BelongsToAccessor, DefaultCrudRepository, repository} from '@loopback/repository';
 import {SecurityDsDataSource} from '../datasources';
-import {Login, LoginRelations} from '../models';
+import {Login, LoginRelations, User} from '../models';
+import {UserRepository} from './user.repository';
 
 export class LoginRepository extends DefaultCrudRepository<
   Login,
   typeof Login.prototype._id,
   LoginRelations
 > {
+
+  public readonly access: BelongsToAccessor<User, typeof Login.prototype._id>;
+
   constructor(
-    @inject('datasources.securityDS') dataSource: SecurityDsDataSource,
+    @inject('datasources.securityDS') dataSource: SecurityDsDataSource, @repository.getter('UserRepository') protected userRepositoryGetter: Getter<UserRepository>,
   ) {
     super(Login, dataSource);
+    this.access = this.createBelongsToAccessorFor('access', userRepositoryGetter,);
+    this.registerInclusionResolver('access', this.access.inclusionResolver);
   }
 }

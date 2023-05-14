@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, belongsTo, model, property} from '@loopback/repository';
+import {User} from './user.model';
 
 @model()
 export class Login extends Entity {
@@ -32,6 +33,9 @@ export class Login extends Entity {
     required: true,
   })
   TFAValid: boolean;
+
+  @belongsTo(() => User, {name: 'access'})
+  userId: string;
 
   constructor(data?: Partial<Login>) {
     super(data);
